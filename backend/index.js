@@ -1,9 +1,18 @@
 import express from 'express'
 import 'dotenv/config'
 import './DB/index.js'
+import bodyParser from 'body-parser'
+import cors from 'cors'
+import Authroutes from './Routes/authrouter.js'
+import { signupvalidate } from "./Middlewares/authvalidations.js";
+import { loginvalidate } from "./Middlewares/authvalidations.js";
 
 let app = express()
 let port = process.env.port
+
+app.use(bodyParser.json())
+app.use(cors())
+app.use('/auth',Authroutes )
 
 app.get('/',(req,res)=>{
     res.send("this is an auth ")
