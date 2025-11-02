@@ -4,8 +4,7 @@ import './DB/index.js'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import Authroutes from './Routes/authrouter.js'
-import { signupvalidate } from "./Middlewares/authvalidations.js";
-import { loginvalidate } from "./Middlewares/authvalidations.js";
+import { usermodel } from './Models/user.model.js'
 
 let app = express()
 let port = process.env.port
