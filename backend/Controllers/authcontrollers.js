@@ -1,5 +1,5 @@
 import { usermodel } from "../Models/user.model"
-
+import bcrypt from 'bcrypt'
 
 export let signup = async (req, res) => {
     try {
@@ -9,11 +9,23 @@ export let signup = async (req, res) => {
         if (user) {
             // here we are using the code 409 this is code for the conflict means the user already exists 
             return res.send(409).json({
-                message : "The user already exists"
+                message : "The user already exists",
+                success : false
             }) // now this message will be used on the frontend to tell the user that u r already a user
         }
-        
+        // Here to save a new user to the mongo db we will need to create an object using the usermodel
+        let usermodel = new usermodel({name,email,password})
+        usermodel.password = await bcrypt.hash(password,10)
+        await usermodel.save()
+         res.status(201)
+            .json({
+                message: "Signup successfully",
+                success: true
+            })
     } catch (error) {
-        
+        res.status(500).json({
+            message : "internal server error",
+            success : false
+        })
     }
 }
