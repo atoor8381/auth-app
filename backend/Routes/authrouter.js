@@ -1,6 +1,7 @@
 import express from 'express'
 import { signupvalidate } from "./Middlewares/authvalidations.js";
 import { loginvalidate } from "./Middlewares/authvalidations.js";
+import { signup, login } from '../Controllers/authcontrollers.js';
 
 
 let router = express.Router()
